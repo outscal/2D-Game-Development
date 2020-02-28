@@ -3,8 +3,8 @@ In this repository we had a environment to start learning the game development a
 
 # Controls of this Game
 Run         : D and A
-Jump        : W
-Push        : P
-Crouch      : C
-Melee Attack: Left Mouse Button
-Holding Gun : Right Mouse Button
+<br/>Jump        : W
+<br/>Push        : P
+<br/>Crouch      : C
+<br/>Melee Attack: Left Mouse Button
+<br/>Holding Gun : Right Mouse Button
