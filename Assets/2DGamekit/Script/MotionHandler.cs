@@ -27,7 +27,7 @@ public class MotionHandler : MonoBehaviour
         //float jump =Input.GetAxis(Tags.Jump);
 
         playerAnimator.SetFloat(Tags.HorizontalSpeed, Mathf.Abs(move));
-        rb.velocity = new Vector2(move * speed, rb.velocity.y);
+        rb.velocity = new Vector2(move * speed, 0);
         print(rb.velocity.y);
         if (move < 0 & isFacingRight)
         {
