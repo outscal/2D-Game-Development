@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Animator playerAnimator;
     private Rigidbody2D rb;
     private bool isFacingRight = true;
-    private bool isGrounded = true;
     private bool isFirstTime = true;
 
 
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
         float jumpScaler = Mathf.Lerp(17.5f, -17.5f, jump);
 
         playerAnimator.SetFloat(Tags.HorizontalSpeed, Mathf.Abs(move));
-        if (isGrounded)
+        if (playerAnimator.GetBool(Tags.Grounded))
         {
             if (move < 0 & isFacingRight)
             {
@@ -37,7 +38,6 @@ public class PlayerController : MonoBehaviour
 
             if(jump > 0 & isFirstTime)
             {
-                isGrounded = false;
                 playerAnimator.SetBool(Tags.Grounded, false);
                 isFirstTime = false;
             }
@@ -99,8 +99,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground")
         {
-            isGrounded = true;
             playerAnimator.SetBool(Tags.Grounded, true);
+            print("inTheGround");
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            playerAnimator.SetBool(Tags.Grounded, false);
             print("inTheGround");
         }
     }
