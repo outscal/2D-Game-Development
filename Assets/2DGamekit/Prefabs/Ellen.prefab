@@ -141,7 +141,6 @@ GameObject:
   - component: {fileID: 95245875792028280}
   - component: {fileID: 70340845508230026}
   - component: {fileID: 50735333045448606}
-  - component: {fileID: 5380733371885753145}
   - component: {fileID: 1340231290031295282}
   m_Layer: 13
   m_Name: Ellen
@@ -280,19 +279,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &5380733371885753145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125256590603436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faa8759f20db3514480bd1cad90795b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 0}
 --- !u!114 &1340231290031295282
 MonoBehaviour:
   m_ObjectHideFlags: 0

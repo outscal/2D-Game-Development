@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\2DGamekit\Script\MotionHandler.cs" />
-     <Compile Include="Assets\2DGamekit\Script\PlayerController.cs" />
      <Compile Include="Assets\2DGamekit\Script\Tags.cs" />
      <Compile Include="Assets\2DGamekit\Utilities\DefaultPlayables\LightControl\LightControlBehaviour.cs" />
      <Compile Include="Assets\2DGamekit\Utilities\DefaultPlayables\LightControl\LightControlClip.cs" />
