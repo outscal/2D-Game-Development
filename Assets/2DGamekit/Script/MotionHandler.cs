@@ -7,17 +7,12 @@ public class MotionHandler : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody2D rb;
     private bool isFacingRight = true;
-    private float speed = 5.0f;
+    public float speed = 5.0f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -26,6 +21,18 @@ public class MotionHandler : MonoBehaviour
         float move = Input.GetAxis(Tags.Horizontal);
         //float jump =Input.GetAxis(Tags.Jump);
 
+        Movement(move);
+    }
+
+    void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector2 dimension = transform.localScale;
+        transform.localScale = new Vector2(-1 * dimension.x, dimension.y);
+    }
+
+    void Movement(float move)
+    {
         playerAnimator.SetFloat(Tags.HorizontalSpeed, Mathf.Abs(move));
         rb.velocity = new Vector2(move * speed, 0);
         print(rb.velocity.y);
@@ -41,6 +48,7 @@ public class MotionHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerAnimator.SetTrigger(Tags.Jump);
+            rb.AddForce(new Vector2(0.0f, 150000.0f), ForceMode2D.Force);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -57,12 +65,5 @@ public class MotionHandler : MonoBehaviour
         {
             playerAnimator.SetBool(Tags.Pushing, false);
         }
-    }
-
-    void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector2 dimension = transform.localScale;
-        transform.localScale = new Vector2(-1 * dimension.x, dimension.y);
     }
 }
