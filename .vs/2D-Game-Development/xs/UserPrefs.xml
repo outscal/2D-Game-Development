@@ -1,0 +1,22 @@
+﻿<Properties StartupConfiguration="{651643A2-7CFD-A5FF-F6C7-515671AA6CC7}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ColliderScript.cs">
+    <Files>
+      <File FileName="Assets/2DGamekit/2DGameKit_Third-PartyNotice.txt" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ColliderScript.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="2D-Game-Development" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="65535afa-f437-4ca3-aee2-c811329e1c07" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
