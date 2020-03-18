@@ -39,17 +39,19 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
-        waterCounterText.text = waterCounterText.text + thisCollectable.waterDrops.ToString();
+        if (waterCounterText)
+            waterCounterText.text = waterCounterText.text + thisCollectable.waterDrops.ToString();
         thisCollectable.waterDrops = 0;
     }
 
-    public void LevelCompleteCheck()
+    public void Level1CompleteCheck()
     {
         LevelCompletePanel.enabled = true;
 
         if (thisCollectable.waterDrops == 5)
         {
-            LevelCompleteUI.enabled = true; ;
+            LevelCompleteUI.enabled = true;
+            LoadLevelManager.instance.UnlockLevel(2);
             RestartButton.SetActive(true);
         }
         else
@@ -66,8 +68,15 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealthUI()
     {
-        HeartToBeDisabled = ListOfHearts[PlayerStats.instance.currentHeartcount - 1];
+        PlayerStats.instance.currentHeartcount -= 1;
+        HeartToBeDisabled = ListOfHearts[PlayerStats.instance.currentHeartcount];
         HeartToBeDisabled.enabled = false;
+    }
+    public void DeathUI()
+    {
+        GameOverImage.enabled = true;
+        RestartButton.SetActive(true);
     }
 
 }
+

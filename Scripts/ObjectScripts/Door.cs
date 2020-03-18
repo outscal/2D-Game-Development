@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            UIManager.instance.LevelCompleteCheck();
+            UIManager.instance.Level1CompleteCheck();
         }
     }
 }

@@ -75,6 +75,11 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Dead");
     }
 
+    public void HurtAnim()
+    {
+        animator.SetTrigger("Hurt");
+    }
+
     private void CrouchingAnim()
     {
         if (Input.GetKeyDown(KeyCode.C) && state != AnimState.Crouched)

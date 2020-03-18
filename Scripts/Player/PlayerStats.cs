@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public int playerHeartCount = 3;
-    [HideInInspector] public int currentHeartcount;
+    public int currentHeartcount;
 
 
     public bool isDead;
@@ -25,13 +25,14 @@ public class PlayerStats : MonoBehaviour
     }
     private void Update()
     {
-        if (currentHeartcount < 0 && !isDead)
+        if (currentHeartcount <= 0 && !isDead)
             PlayerDeath();
     }
 
     public void DamagePlayer()
+
     {
-        currentHeartcount -= 1;
+        PlayerController.instance.HurtAnim();
         UIManager.instance.UpdateHealthUI();
     }
 
@@ -40,10 +41,7 @@ public class PlayerStats : MonoBehaviour
         //Anims and Vars
         PlayerController.instance.DeadAnim();
         isDead = true;
-
-        //UI
-        UIManager.instance.GameOverImage.enabled = true;
-        UIManager.instance.RestartButton.SetActive(true);
+        UIManager.instance.DeathUI();
     }
 
 

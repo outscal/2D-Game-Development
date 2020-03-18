@@ -4,73 +4,101 @@ using UnityEngine;
 
 public class Chomper : MonoBehaviour
 {
+
+    [Header("Chomper Health")]
+    public float maxHealth;
+    [HideInInspector]
+    public float currenthealth;
+
+    [Header("Chomper Movement")]
     public float walkSpeed;
     public float runSpeed;
     public bool isFacingRight = true;
-    float localScaleX;
+    public States currentState;
+
+    [Header("Unity Essentials")]
     public Animator animator;
     public Transform LeftBound, RightBound;
+    IEnumerator AttackCo;
 
+    float localScaleX;
+
+    [Header("Attack Parameters")]
     public float attackDistance;
     public float attackCoolDown;
+    public bool isPlayerDetected = false;
+    bool inAttack;
 
-    public bool playerDetected;
-
-    public enum States
-    {
-        idle, running, walking, attacking, dead,
-    }
-
-    public States currentState;
 
     private void Start()
     {
-        currentState = States.walking;
+        animator.SetBool("isWalking", true);
+        currenthealth = maxHealth;
     }
+
+    public enum States
+    {
+        coolDown, running, walking, attacking, dead,
+    }
+
+
+
     private void Update()
     {
+
+
         if (shouldFlip())
             Flip();
 
-        if (playerDetected)
+        if (!isPlayerDetected)
             Walking();
-        else
+        else if (isPlayerDetected && !playerIsInRange())
             Running();
 
+        if (canAttack() && isPlayerDetected &&
+             !PlayerIsNotInFront())
+        {
+            AttackCo = Attack();
+            StartCoroutine(AttackCo);
+        }
     }
 
     private void Walking()
     {
-        if (currentState != States.attacking)
-            if (isFacingRight)
-                transform.Translate(Vector2.right * walkSpeed * Time.deltaTime);
-            else
-                transform.Translate(Vector2.left * walkSpeed * Time.deltaTime);
+        if (currentState != States.walking)
+            currentState = States.walking;
+
+        if (isFacingRight)
+            transform.Translate(Vector2.right * walkSpeed * Time.deltaTime);
+        else
+            transform.Translate(Vector2.left * walkSpeed * Time.deltaTime);
+
     }
 
     private void Running()
     {
-        if (currentState != States.attacking)
+
+        if (currentState != States.running)
         {
-            if (currentState != States.running)
-            {
-                currentState = States.running;
-                animator.SetBool("isRunning", true);
-            }
-
-            if (isFacingRight)
-                transform.Translate(Vector2.right * runSpeed * Time.deltaTime);
-            else
-                transform.Translate(Vector2.left * runSpeed * Time.deltaTime);
-
-            if (playerIsInRange())
-                StartCoroutine(Attack());
+            currentState = States.running;
+            animator.SetBool("isRunning", true);
         }
+
+        if (isFacingRight)
+            transform.Translate(Vector2.right * runSpeed * Time.deltaTime);
+        else
+            transform.Translate(Vector2.left * runSpeed * Time.deltaTime);
+
+    }
+
+    private bool canAttack()
+    {
+        return playerIsInRange() && !inAttack;
     }
 
     private bool playerIsInRange()
     {
-        if (Vector2.Distance(transform.localPosition, PlayerController.instance.gameObject.transform.localPosition) < attackDistance)
+        if (Mathf.Abs(transform.position.x - PlayerController.instance.transform.position.x) < attackDistance)
             return true;
         else
             return false;
@@ -79,24 +107,22 @@ public class Chomper : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        currentState = States.attacking;
-        animator.SetTrigger("Attack");
-        PlayerStats.instance.DamagePlayer();
-
+        Debug.Log("In Attack Coroutine");
+        inAttack = true;
+        if (PlayerIsNotInFront())
+            Flip();
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isWalking", false);
+        currentState = States.coolDown;
         animator.SetBool("inCoolDown", true);
         yield return new WaitForSeconds(attackCoolDown);
+        currentState = States.attacking;
         animator.SetBool("inCoolDown", false);
-
-
-        if (playerDetected && playerIsInRange() && currentState != States.attacking)
-        {
-            StartCoroutine(Attack());
-        }
-        else if (!playerDetected && !playerIsInRange())
-        {
-            currentState = States.walking;
-        }
-
+        animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.4f);
+        PlayerStats.instance.DamagePlayer();
+        yield return new WaitForSeconds(0.5f);
+        inAttack = false;
     }
 
     private bool shouldFlip()
@@ -116,16 +142,39 @@ public class Chomper : MonoBehaviour
         transform.localScale = new Vector2(localScaleX, transform.localScale.y);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<PlayerController>() != null)
         {
-            playerDetected = true;
+            if (!PlayerStats.instance.isDead)
+                isPlayerDetected = true;
+            else
+                isPlayerDetected = false;
+
+            if (PlayerIsNotInFront())
+                Flip();
         }
     }
 
+    private bool PlayerIsNotInFront()
+    {
+        return (PlayerController.instance.transform.position.x > transform.position.x && !isFacingRight)
+             || (PlayerController.instance.transform.position.x < transform.position.x && isFacingRight);
+    }
 
-
-
-
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>() != null)
+        {
+            isPlayerDetected = false;
+            if (AttackCo != null)
+                StopCoroutine(AttackCo);
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("inCoolDown", false);
+            animator.ResetTrigger("Attack");
+            inAttack = false;
+        }
+    }
 }
