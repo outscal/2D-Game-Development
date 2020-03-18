@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 
         isGrounded = Physics2D.OverlapCircle (feetPos.position, checkRadius, whatIsGround);
 
+        animator.SetBool("isGrounded", isGrounded);
         if (isGrounded == true && Input.GetButtonDown ("Jump")) {
             JumpPlayer();
         }
@@ -53,7 +54,6 @@ public class PlayerMovement : MonoBehaviour {
             animator.SetBool ("isRunning", true);
         }
         // animator.SetFloat ("speed", Mathf.Abs (moveInput));
-        animator.SetBool("isGrounded", isGrounded);
     }
 
     private void OnCollisionEnter2D (Collision2D other) {
@@ -106,6 +106,7 @@ public class PlayerMovement : MonoBehaviour {
     
     public void JumpPlayer()
     {
+        animator.SetBool("isGrounded", false);
         rb.velocity = Vector2.up * jumpSpeed;
         animator.SetTrigger("jump");
     }

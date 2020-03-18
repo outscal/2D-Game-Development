@@ -13,8 +13,9 @@ public class GameData
 
 public class enums : MonoBehaviour 
 {
-    public void LoadGameScene ()
+    public void LoadGameScene (string sceneName)
     {
-        SceneManager.LoadScene ("2dPlatformer");
+        SceneManager.LoadScene(sceneName);
+        Debug.Log(sceneName);
     }
 }
