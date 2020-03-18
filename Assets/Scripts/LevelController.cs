@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour {
     public GameObject levelComplteUI;
     public int score;
     public Text scoreText;
+
     void Start () {
-        GamaeData.SCORE = 0;
-        score = GamaeData.SCORE;
+        GameData.SCORE = 0;
+        score = GameData.SCORE;
         scoreText.text = "Score: " + score;
         levelComplteUI.SetActive (false);
         Debug.Log ("enum = " + score);
@@ -23,8 +25,12 @@ public class LevelController : MonoBehaviour {
     }
 
     void Update () {
-        score = GamaeData.SCORE;
+        score = GameData.SCORE;
         scoreText.text = "Score: " + score;
+    }
+    public void RestartGame () {
+        Time.timeScale = 1;
+        SceneManager.LoadScene ("2dPlatformer");
     }
 
 }

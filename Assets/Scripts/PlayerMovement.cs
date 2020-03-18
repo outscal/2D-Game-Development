@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public float speed;
     public float jumpSpeed;
+    public float killJumpSpeed;
     float moveInput;
     private bool facingRight = true;
     public Rigidbody2D rb;
@@ -19,9 +20,14 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask whatIsGround;
     public LayerMask enemy;
     public GameObject gameOverUI;
+    private Vector3 resetPos;
+
+    public HealthManager healthManager;
+    public Renderer rend;
 
     void Start () {
         gameOverUI.SetActive (false);
+        resetPos = transform.position;
     }
 
     void FixedUpdate () {
@@ -39,7 +45,7 @@ public class PlayerMovement : MonoBehaviour {
         isGrounded = Physics2D.OverlapCircle (feetPos.position, checkRadius, whatIsGround);
 
         if (isGrounded == true && Input.GetButtonDown ("Jump")) {
-            rb.velocity = Vector2.up * jumpSpeed;
+            JumpPlayer();
         }
         if (moveInput == 0) {
             animator.SetBool ("isRunning", false);
@@ -47,14 +53,61 @@ public class PlayerMovement : MonoBehaviour {
             animator.SetBool ("isRunning", true);
         }
         // animator.SetFloat ("speed", Mathf.Abs (moveInput));
-        animator.SetBool ("isGrounded", isGrounded);
+        animator.SetBool("isGrounded", isGrounded);
     }
 
     private void OnCollisionEnter2D (Collision2D other) {
         if (other.collider.gameObject.layer == LayerMask.NameToLayer ("Water")) {
-            gameOverUI.SetActive (true);
-            Time.timeScale = 0;
+            CheckHealth();
         }
+        if (other.gameObject.CompareTag ("Enemy")) {
+            CheckHealth();
+        }
+    }
+
+    public void CheckHealth()
+    {
+        if (GameData.HEALTHCOUNT > GameData.minHealthCount)
+        {
+            healthManager.DecreaseHealth(GameData.healthValue);
+            StartCoroutine(Dead());
+        }
+        else
+        {
+            gameOverUI.SetActive(true);
+            Destroy(gameObject);
+        }
+
+    }
+
+    IEnumerator Dead()
+    {
+        rend.enabled = false;
+        yield return new WaitForSeconds(0.2f);
+        //renderer.enabled - true;
+        resetPlayerPosition();
+        rend.enabled = true;
+
+    }
+
+    public void resetPlayerPosition()
+    {
+        transform.position = resetPos;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")){
+            rb.velocity = Vector2.up * killJumpSpeed;
+            //Destroy(collision.gameObject);
+        }
+    }
+    
+    
+    public void JumpPlayer()
+    {
+        rb.velocity = Vector2.up * jumpSpeed;
+        animator.SetTrigger("jump");
     }
 
     public void MovePlayer (float move) {
@@ -72,9 +125,6 @@ public class PlayerMovement : MonoBehaviour {
         transform.localScale = scaler;
     }
 
-    public void RestartGame () {
-        Time.timeScale = 1;
-        SceneManager.LoadScene ("2dPlatformer");
-    }
+   
 
 }
