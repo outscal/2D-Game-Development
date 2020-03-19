@@ -29,8 +29,10 @@ public class LevelController : MonoBehaviour {
         scoreText.text = "Score: " + score;
     }
     public void RestartGame () {
-        Time.timeScale = 1;
-        SceneManager.LoadScene ("Scene1");
+        //Time.timeScale = 1;
+        //SceneManager.LoadScene ("Scene1");
+        SceneManager.LoadScene ("MainMenu");
+        
     }
 
 }
