@@ -17,8 +17,14 @@ public class Movement : MonoBehaviour
         //Move to run transition animation.
         moveToRun();
 
-        //Melle animation while enemy. Enemy acts as a trigger.
+        //Melle animation when pressing the mouse fire1 button.
         attackAnimation();
+
+        //Crouch animation.
+        crouchAnimation();
+
+        jumpAnimation();
+
 
 
     }
@@ -49,6 +55,18 @@ public class Movement : MonoBehaviour
         animator.SetBool("attack", attack);
 
 
+    }
+
+    private void crouchAnimation()
+    {
+        bool crouch = Input.GetKey(KeyCode.C);
+        animator.SetBool("crouch", crouch);
+    }
+
+    private void jumpAnimation()
+    {
+        bool Jump = Input.GetKey(KeyCode.Space);
+        animator.SetBool("Jump", Jump);
     }
 
 }
