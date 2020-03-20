@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public Animator animator;
+ 
 
     private void Awake()
     {
@@ -13,8 +14,19 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        //Move to run transition animation.
+        moveToRun();
+
+        //Melle animation while enemy. Enemy acts as a trigger.
+        attackAnimation();
+
+
+    }
+
+    private void moveToRun()
+    {
         float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("speed",Mathf.Abs(speed));
+        animator.SetFloat("speed", Mathf.Abs(speed));
 
         //Mathf.abs will always return positive value.
 
@@ -29,10 +41,14 @@ public class Movement : MonoBehaviour
 
         }
         transform.localScale = scale;
+    }
 
-
-
+    private void attackAnimation()
+    {
+        bool attack = Input.GetButton("Fire1");
+        animator.SetBool("attack", attack);
 
 
     }
+
 }

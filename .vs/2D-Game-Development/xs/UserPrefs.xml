@@ -1,9 +1,8 @@
 ﻿<Properties StartupConfiguration="{651643A2-7CFD-A5FF-F6C7-515671AA6CC7}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Movement.cs">
     <Files>
-      <File FileName="Assets/2DGamekit/2DGameKit_Third-PartyNotice.txt" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ColliderScript.cs" Line="17" Column="1" />
-      <File FileName="Assets/Scripts/Movement.cs" Line="29" Column="1" />
+      <File FileName="Assets/2DGamekit/2DGameKit_Third-PartyNotice.txt" Line="1" Column="32" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="19" Column="27" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,7 +14,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="46fa0cfc-1553-4a25-8a85-9ff6e7f31e68" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b9ee9e1b-bc80-45d2-8303-4fa290687779" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
