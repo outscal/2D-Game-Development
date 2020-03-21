@@ -5,7 +5,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public Animator animator;
- 
+
+    public float speed;
 
     private void Awake()
     {
@@ -14,8 +15,12 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+
+        characterMovement(horizontal);
+
         //Move to run transition animation.
-        moveToRun();
+        moveToRun(horizontal);
 
         //Melle animation when pressing the mouse fire1 button.
         attackAnimation();
@@ -23,25 +28,34 @@ public class Movement : MonoBehaviour
         //Crouch animation.
         crouchAnimation();
 
+        //Jump animation.
         jumpAnimation();
 
 
 
     }
 
-    private void moveToRun()
+    private void characterMovement(float horizontal)
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("speed", Mathf.Abs(speed));
+        Vector3 position = transform.position;
+        position.x = position.x + horizontal * speed * Time.deltaTime;
+        transform.position = position;
+    }
+
+
+
+    private void moveToRun(float horizontal)
+    {
+        animator.SetFloat("speed", Mathf.Abs(horizontal));
 
         //Mathf.abs will always return positive value.
 
         Vector3 scale = transform.localScale;
-        if (speed > 0)
+        if (horizontal > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
-        else if (speed < 0)
+        else if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
 
