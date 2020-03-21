@@ -8,7 +8,14 @@ public class GameData
     public static int SCORE = 0;
     public static int HEALTHCOUNT = 3;
     public static int minHealthCount = 1;
+    public static int maxHealthCount = 3;
     public static int healthValue = 1;
+}
+
+public class LevelData
+{
+    public static int UnlockedLevels = 1;
+
 }
 
 public class enums : MonoBehaviour 

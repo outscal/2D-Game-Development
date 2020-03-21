@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour 
+{
 
     public float speed;
     public float jumpSpeed;
@@ -24,13 +25,18 @@ public class PlayerMovement : MonoBehaviour {
 
     public HealthManager healthManager;
     public Renderer rend;
+    //public Key[] keys;
+    //private int collectedKeys = 0;
 
-    void Start () {
+    void Start () 
+    {
+        //collectedKeys = 0;
         gameOverUI.SetActive (false);
         resetPos = transform.position;
     }
 
-    void FixedUpdate () {
+    void FixedUpdate ()
+    {
         moveInput = Input.GetAxisRaw ("Horizontal");
 
         MovePlayer (moveInput);
@@ -40,30 +46,70 @@ public class PlayerMovement : MonoBehaviour {
             Flip ();
     }
 
-    void Update () {
+    void Update () 
+    {
 
         isGrounded = Physics2D.OverlapCircle (feetPos.position, checkRadius, whatIsGround);
 
         animator.SetBool("isGrounded", isGrounded);
-        if (isGrounded == true && Input.GetButtonDown ("Jump")) {
+        if (isGrounded == true && Input.GetButtonDown ("Jump")) 
+        {
             JumpPlayer();
         }
-        if (moveInput == 0) {
+        if (moveInput == 0) 
+        {
             animator.SetBool ("isRunning", false);
-        } else {
+        } else 
+        {
             animator.SetBool ("isRunning", true);
         }
         // animator.SetFloat ("speed", Mathf.Abs (moveInput));
     }
 
-    private void OnCollisionEnter2D (Collision2D other) {
-        if (other.collider.gameObject.layer == LayerMask.NameToLayer ("Water")) {
+    private void OnCollisionEnter2D (Collision2D other)
+    {
+        if (other.collider.gameObject.layer == LayerMask.NameToLayer ("Water")) 
+        {
             CheckHealth();
         }
-        if (other.gameObject.CompareTag ("Enemy")) {
+        if (other.gameObject.CompareTag ("Enemy")) 
+        {
             CheckHealth();
         }
     }
+
+    //public void IncreaseKeyCount()
+    //{
+    //    if (collectedKeys > keys.Length)
+    //    {
+    //        collectedKeys = 0;
+    //        collectedKeys++;
+    //    }
+    //    else
+    //    {
+    //        collectedKeys++;
+    //        Debug.Log("keys= " + collectedKeys);
+    //    }
+    //}
+
+    //public bool checkKeysCollected()
+    //{
+
+    //    Debug.Log("collected keys= " + collectedKeys);
+    //    if (collectedKeys == keys.Length)
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
+
+    //public void resetCollectedKeys()
+    //{
+    //    collectedKeys = 0;
+    //}
 
     public void CheckHealth()
     {
@@ -77,7 +123,6 @@ public class PlayerMovement : MonoBehaviour {
             gameOverUI.SetActive(true);
             Destroy(gameObject);
         }
-
     }
 
     IEnumerator Dead()
@@ -87,7 +132,6 @@ public class PlayerMovement : MonoBehaviour {
         //renderer.enabled - true;
         resetPlayerPosition();
         rend.enabled = true;
-
     }
 
     public void resetPlayerPosition()
@@ -111,7 +155,8 @@ public class PlayerMovement : MonoBehaviour {
         animator.SetTrigger("jump");
     }
 
-    public void MovePlayer (float move) {
+    public void MovePlayer (float move) 
+    {
         if (Input.GetKey (KeyCode.LeftShift) && move != 0) {
             rb.velocity = new Vector2 (move * Time.fixedDeltaTime * speed * 2, rb.velocity.y);
             return;
@@ -119,13 +164,12 @@ public class PlayerMovement : MonoBehaviour {
         rb.velocity = new Vector2 (move * Time.fixedDeltaTime * speed, rb.velocity.y);
     }
 
-    public void Flip () {
+    public void Flip ()
+    {
         facingRight = !facingRight;
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
     }
-
-   
 
 }
