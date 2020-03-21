@@ -2014,32 +2014,12 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!1 &1541523402 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5403133575428638907, guid: 5ddd10148f25e440098a2e1de2bc9658,
-    type: 3}
-  m_PrefabInstance: {fileID: 3722954388115906747}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1541523403 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8319534003551538391, guid: 5ddd10148f25e440098a2e1de2bc9658,
     type: 3}
   m_PrefabInstance: {fileID: 3722954388115906747}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1541523404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541523402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4b1ea9e32274f53b7b92d12e527e84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1850839533}
-  speed: 6
 --- !u!1001 &1599626544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2355,7 +2335,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 7
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -2363,7 +2343,22 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &1850839537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850839531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4b1ea9e32274f53b7b92d12e527e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1850839533}
+  speed: 7
+  jump: 18
 --- !u!1 &1887645023 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3116539033987985315, guid: 640556cede3204efaac288d100269a42,

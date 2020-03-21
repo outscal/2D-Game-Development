@@ -7,17 +7,24 @@ public class Movement : MonoBehaviour
     public Animator animator;
 
     public float speed;
+    public float jump;
+
+    private Rigidbody2D rb2d;
 
     private void Awake()
     {
         Debug.Log("Player controller awake.");
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
+        
 
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Jump");
+     
 
-        characterMovement(horizontal);
+        characterMovement(horizontal, vertical);
 
         //Move to run transition animation.
         moveToRun(horizontal);
@@ -35,11 +42,17 @@ public class Movement : MonoBehaviour
 
     }
 
-    private void characterMovement(float horizontal)
+    private void characterMovement(float horizontal, float vertical)
     {
         Vector3 position = transform.position;
         position.x = position.x + horizontal * speed * Time.deltaTime;
         transform.position = position;
+
+        if (vertical > 0)
+        {
+                rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        }
+
     }
 
 
@@ -79,8 +92,17 @@ public class Movement : MonoBehaviour
 
     private void jumpAnimation()
     {
-        bool Jump = Input.GetKey(KeyCode.Space);
-        animator.SetBool("Jump", Jump);
+       float vertical = Input.GetAxisRaw("Jump");
+       if (vertical>0)
+        {
+            animator.SetBool("Jump", true);
+            
+        }
+       else 
+        {
+            animator.SetBool("Jump", false);
+      
+        }
     }
 
 }
