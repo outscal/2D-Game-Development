@@ -9,16 +9,17 @@ public class EnemyScript : MonoBehaviour
     private float waitTime = 1.0f;
     private float timer = 0.0f;
 
-
     private Animator enemyAnim;
 
-    private Vector3 userDirection = Vector3.right;
+
+    private Vector3 userDirection = Vector3.right; 
     
 
     // Start is called before the first frame update
     void Start()
     {
         enemyAnim = GetComponent<Animator>();
+
 
     }
 
@@ -28,32 +29,13 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         movementEnemy();
-        timeCheck();
 
     }
 
     private void movementEnemy()
     {
         transform.Translate(userDirection * movespeed * Time.deltaTime);
-      
+
     }
-
-    private void timeCheck()
-    {
-
-        Vector3 scale = transform.localScale;
-        //timer += Time.deltaTime;
-
-        //if (timer < waitTime)
-        //{
-        //    scale.x = Mathf.Abs(scale.x);
-        //}
-        //else if  (timer > waitTime)
-        //{
-        scale.x = -1.0f * Mathf.Abs(scale.x);
-      
-        
-    }
-
 
 }

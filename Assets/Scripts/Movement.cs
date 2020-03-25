@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
 
         if (vertical > 0)
         {
-                rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+                rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force );
         }
 
     }
