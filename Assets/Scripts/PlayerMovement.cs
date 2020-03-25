@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     public HealthManager healthManager;
     public Renderer rend;
+    public AudioSource audioSource;
+    public AudioClip walkingClip;
     //public Key[] keys;
     //private int collectedKeys = 0;
 
@@ -170,6 +172,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
+    }
+
+    public void PlayFootstep()
+    {
+        SoundManager.instance.playPlayerSound(walkingClip);
+        //audioSource.Play(0);
     }
 
 }

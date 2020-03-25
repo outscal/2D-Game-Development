@@ -6,7 +6,7 @@ public class Key : MonoBehaviour
 {
 
     public GameObject keyEffect;
-
+    public AudioClip keyCollectClip;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,7 +15,9 @@ public class Key : MonoBehaviour
             //collision.gameObject.GetComponent<PlayerMovement>().IncreaseKeyCount();
             LevelController.instance.IncreseLevelKeyCount();
             keyEffect.SetActive(true);
-            StartCoroutine(Destroy());
+            SoundManager.instance.playEffect(keyCollectClip);
+            Destroy(gameObject,0.3f);
+            //StartCoroutine(Destroy());
         }
     }
 

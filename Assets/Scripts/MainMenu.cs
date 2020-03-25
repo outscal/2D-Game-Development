@@ -14,10 +14,7 @@ public class MainMenu : MonoBehaviour
     {
         for (int i = 0; i < levels.Length; i++)
         {
-            //if (levels[i].checkUnlock)
-            //{
-
-            //}
+          
         }
     }
 

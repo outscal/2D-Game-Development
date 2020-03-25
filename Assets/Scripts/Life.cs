@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Life : MonoBehaviour
 {
+    public GameObject coinEffect;
+    public AudioClip lifeCollectClip;
     // Start is called before the first frame update
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,7 +14,9 @@ public class Life : MonoBehaviour
             {
             GameData.HEALTHCOUNT += GameData.healthValue;
             }
-            Destroy(gameObject);
+            coinEffect.SetActive(true);
+            SoundManager.instance.playEffect(lifeCollectClip);
+            Destroy(gameObject,0.3f);
         }
     }
 }

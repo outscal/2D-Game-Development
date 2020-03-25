@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Coins : MonoBehaviour {
 
+    public GameObject coinEffect;
+    public AudioClip coinCollectClip;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerMovement>())
         {
+            coinEffect.SetActive(true);
+            SoundManager.instance.playEffect(coinCollectClip);
             GameData.SCORE++;
             LevelController.instance.UpdateScore();
-            Destroy(gameObject);
+            Destroy(gameObject,0.3f);
         }
     }
 
