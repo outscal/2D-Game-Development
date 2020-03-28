@@ -6,36 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/2DGamekit/Scenes/Start.unity
-    guid: 57df1e417250bc247976c2c0dc088efe
+    path: Assets/Scenes/MainMenu.unity
+    guid: 80ba2d13391a94747ac2d0567dd345e3
   - enabled: 1
-    path: Assets/2DGamekit/Scenes/Zone1.unity
-    guid: a94cb8f134bf81349ad016c79b629e3d
+    path: Assets/Scenes/Level1.unity
+    guid: 0fd788a4cdd803b478942fd7c5ac9ab6
   - enabled: 1
-    path: Assets/2DGamekit/Scenes/Zone2.unity
-    guid: 5436c67e9267f17458b31fcdc20cd20a
+    path: Assets/Scenes/Level2.unity
+    guid: 1be2bbcce884a794b86e62c825a606be
   - enabled: 1
-    path: Assets/2DGamekit/Scenes/Zone3.unity
-    guid: 4b4b0e246fc7dbb4295a38fd03241362
+    path: Assets/Scenes/Level3.unity
+    guid: 3512fb04057479547b3b7723fb39a319
   - enabled: 1
-    path: Assets/2DGamekit/Scenes/Zone4.unity
-    guid: 5b0c2d9ddd151ba489db19a4fb634327
+    path: Assets/Scenes/Level4.unity
+    guid: c0aea1827b2e8a74b81763f8c2177157
   - enabled: 1
-    path: Assets/2DGamekit/Scenes/Zone5.unity
-    guid: 960b12f881940d84983273421bebc695
-  - enabled: 1
-    path: Assets/2DGamekit/Scenes/UI/UIMenus.unity
-    guid: 705f1f73151a73046842d4e4ec8f514d
-  - enabled: 1
-    path: Assets/2DGamekit/Scenes/UI/Loading.unity
-    guid: ebc4647ff02971c4ba1b207af066be4d
-  - enabled: 1
-    path: Assets/__DELETED_GUID_Trash/240ec9824a41a4ecb8ccdf3507d1adc0
-    guid: 240ec9824a41a4ecb8ccdf3507d1adc0
-  - enabled: 1
-    path: Assets/__DELETED_GUID_Trash/beaba465fcff4439795f30ae75d58f6e
-    guid: beaba465fcff4439795f30ae75d58f6e
-  - enabled: 1
-    path: Assets/NewScene.unity
-    guid: 270072cfc180a47179cff49edea38e4c
+    path: Assets/Scenes/Level5.unity
+    guid: e69bdda1da214a14bb0bfe29321c8ca6
   m_configObjects: {}
