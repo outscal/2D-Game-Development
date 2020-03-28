@@ -69,6 +69,7 @@
     <Compile Include="Assets\2DGamekit\Utilities\DefaultPlayables\TextSwitcher\Editor\TextSwitcherDrawer.cs" />
     <Compile Include="Assets\2DGamekit\Utilities\DefaultPlayables\TimeDilation\Editor\TimeDilationDrawer.cs" />
     <Compile Include="Assets\2DGamekit\Utilities\DefaultPlayables\TransformTween\Editor\TransformTweenDrawer.cs" />
+    <Compile Include="Assets\Water2D Surface\scripts\Editor\MeshRendererEditor.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:/OutScal/Repos/New folder/2D-Game-Development/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>

@@ -112,7 +112,10 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\enums.cs" />
+    <Compile Include="Assets\Water2D Surface\scripts\Water2DScript.cs" />
+    <Compile Include="Assets\Water2D Surface\scripts\WaterReflectableScript.cs" />
     <None Include="Assets\2DGamekit\Utilities\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\Water2D Surface\shaders\Water2D Surface.shader" />
     <None Include="Assets\2DGamekit\Utilities\Shaders\UnityStandardParticleShadow.cginc" />
     <None Include="Assets\2DGamekit\Utilities\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\2DGamekit\Utilities\Shaders\UnityStandardParticles.cginc" />
@@ -125,6 +128,7 @@
     <None Include="Assets\2DGamekit\Utilities\Fonts\Rajdhani\RajdhaniFontLicense.txt" />
     <None Include="Assets\2DGamekit\2DGameKit_Third-PartyNotice.txt" />
     <None Include="Assets\2DGamekit\Utilities\Shaders\NormalMappedTile.shader" />
+    <None Include="Assets\Water2D Surface\demo\sprites\LICENCE.txt" />
     <None Include="Assets\2DGamekit\Utilities\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\2DGamekit\Utilities\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\2DGamekit\Utilities\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
