@@ -15,7 +15,7 @@ public class Life : MonoBehaviour
             GameData.HEALTHCOUNT += GameData.healthValue;
             }
             coinEffect.SetActive(true);
-            SoundManager.instance.playEffect(lifeCollectClip);
+            SoundManager.instance.playCollectibleSound(Sfx.CollectibleSfx.Life, false);
             Destroy(gameObject,0.3f);
         }
     }

@@ -15,7 +15,7 @@ public class Key : MonoBehaviour
             //collision.gameObject.GetComponent<PlayerMovement>().IncreaseKeyCount();
             LevelController.instance.IncreseLevelKeyCount();
             keyEffect.SetActive(true);
-            SoundManager.instance.playEffect(keyCollectClip);
+            SoundManager.instance.playCollectibleSound(Sfx.CollectibleSfx.Key, false);
             Destroy(gameObject,0.3f);
             //StartCoroutine(Destroy());
         }

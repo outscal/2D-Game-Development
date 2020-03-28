@@ -15,15 +15,15 @@ public class HealthManager : MonoBehaviour
         slider.value = GameData.HEALTHCOUNT;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        slider.value = GameData.HEALTHCOUNT;
-
-    }
-
     public void DecreaseHealth(int healthValue)
     {
         GameData.HEALTHCOUNT-= healthValue;
+        slider.value = GameData.HEALTHCOUNT;
+    }
+
+    public void IncreaseHealth()
+    {
+        GameData.HEALTHCOUNT += GameData.healthValue;
+        slider.value = GameData.HEALTHCOUNT;
     }
 }

@@ -2652,11 +2652,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791671234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.22353, y: 1.9999999, z: -10}
+  m_LocalPosition: {x: -9.223161, y: 1.9999999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1324094414}
   - {fileID: 1128435414}
+  - {fileID: 956257553}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3262,6 +3263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac410377df091647938d882883584d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinEffect: {fileID: 0}
+  lifeCollectClip: {fileID: 0}
 --- !u!58 &954329816
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3328,6 +3331,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &956257552
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 791671235}
+    m_Modifications:
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 246158953001102045, guid: a14f8072524bdcb40afbbeea39d055e9,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a14f8072524bdcb40afbbeea39d055e9, type: 3}
+--- !u!4 &956257553 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 246158953001102044, guid: a14f8072524bdcb40afbbeea39d055e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 956257552}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &988468479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3388,7 +3466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988468479}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.22353, y: 1.9999999, z: -10}
+  m_LocalPosition: {x: -9.223161, y: 1.9999999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1402676692}
@@ -5679,6 +5757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelComplteUI: {fileID: 1184188581}
   gameCompleteUI: {fileID: 2121849079}
+  gameOverUI: {fileID: 763948179}
   collectKeyUI: {fileID: 1731420014}
   lockImages: []
   score: 0

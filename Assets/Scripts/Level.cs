@@ -66,8 +66,4 @@ public class Level : MonoBehaviour
         collectedKeys = 0;
     }
 
-    public void unlockLevel()
-    {
-
-    }
 }

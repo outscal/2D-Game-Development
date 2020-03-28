@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-
+    private bool isCompleted = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerMovement>())
         {
-            LevelController.instance.LevelCheck();
-            Debug.Log("level successfully checked");
-
+           isCompleted =  LevelController.instance.LevelCheck();
+            if(isCompleted == true)
+            {
+                Destroy(collision.gameObject);
+            }
+            //Debug.Log("level successfully checked");
         }
     }
 

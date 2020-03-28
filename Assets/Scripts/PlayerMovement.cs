@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     public HealthManager healthManager;
     public Renderer rend;
-    public AudioSource audioSource;
     public AudioClip walkingClip;
     //public Key[] keys;
     //private int collectedKeys = 0;
@@ -80,66 +79,43 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //public void IncreaseKeyCount()
-    //{
-    //    if (collectedKeys > keys.Length)
-    //    {
-    //        collectedKeys = 0;
-    //        collectedKeys++;
-    //    }
-    //    else
-    //    {
-    //        collectedKeys++;
-    //        Debug.Log("keys= " + collectedKeys);
-    //    }
-    //}
-
-    //public bool checkKeysCollected()
-    //{
-
-    //    Debug.Log("collected keys= " + collectedKeys);
-    //    if (collectedKeys == keys.Length)
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-
-    //public void resetCollectedKeys()
-    //{
-    //    collectedKeys = 0;
-    //}
 
     public void CheckHealth()
     {
         if (GameData.HEALTHCOUNT > GameData.minHealthCount)
         {
             healthManager.DecreaseHealth(GameData.healthValue);
-            StartCoroutine(Dead());
+            SoundManager.instance.playPlayerSound(Sfx.PlayerSfx.Death, false);
+            StartCoroutine(RegeneratePlayer());
         }
         else
-        {
-            gameOverUI.SetActive(true);
+        {   
+            SoundManager.instance.playGameSound(Sfx.GameSfx.GameOver, true);
+            GameOver();
+            Debug.Log("player destroyed");
+            healthManager.DecreaseHealth(GameData.healthValue);
             Destroy(gameObject);
         }
     }
 
-    IEnumerator Dead()
-    {
+    IEnumerator RegeneratePlayer()
+    {   
+        SoundManager.instance.playPlayerSound(Sfx.PlayerSfx.Death,false);
         rend.enabled = false;
         yield return new WaitForSeconds(0.2f);
-        //renderer.enabled - true;
         resetPlayerPosition();
         rend.enabled = true;
     }
-
     public void resetPlayerPosition()
     {
         transform.position = resetPos;
     }
+
+   private void GameOver()
+    {
+        LevelController.instance.SetGameoverUI();
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -176,8 +152,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayFootstep()
     {
-        SoundManager.instance.playPlayerSound(walkingClip);
-        //audioSource.Play(0);
+        SoundManager.instance.playPlayerSound(Sfx.PlayerSfx.Walk, false);
     }
 
 }

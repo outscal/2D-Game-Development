@@ -12,7 +12,7 @@ public class Coins : MonoBehaviour {
         if (collision.gameObject.GetComponent<PlayerMovement>())
         {
             coinEffect.SetActive(true);
-            SoundManager.instance.playEffect(coinCollectClip);
+            SoundManager.instance.playCollectibleSound(Sfx.CollectibleSfx.Coin, false);
             GameData.SCORE++;
             LevelController.instance.UpdateScore();
             Destroy(gameObject,0.3f);
