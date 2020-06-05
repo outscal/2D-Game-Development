@@ -1,16 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+	public ScoreController scoreController;
+	public GameOver gameover;
+
 	public Animator animator;
 
 	public float speed;
-	public float jump;
+	public float jumpForce;
+
+	bool jumped = false;
 
 	private Rigidbody2D rb2D;
-
 
 	private void Awake()
 	{
@@ -18,10 +23,29 @@ public class PlayerController : MonoBehaviour
 		rb2D = gameObject.GetComponent<Rigidbody2D>();
 	}
 
-	/*private void OnCollisionEnter2D(Collision2D collision)
+	public void KillPlayer()
+	{
+		//Destroy(gameObject);
+		gameover.PlayerDied();
+		Debug.Log("Player killed");
+		this.enabled = false;
+	}
+
+	public void PickupKey()
+	{
+		Debug.Log("Picked up the key");
+		scoreController.IncreaseScore(10);
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		Debug.Log("Collision: "+collision.gameObject.name);
-	}*/
+		if (collision.gameObject.CompareTag("Ground"))
+		{
+			jumped = true;
+			Debug.Log("Ground is: " + collision.gameObject.tag);
+		}
+	}
 
 	private void Update()
 	{
@@ -32,7 +56,6 @@ public class PlayerController : MonoBehaviour
 		PlayerMovementAnimation(horizontal, vertical); //Play animations
 	}
 	
-	//Movement of character from one place to another
 	private void MoveCharacter(float horizontal, float vertical)
 	{
 		//Move Character horizontally
@@ -41,9 +64,11 @@ public class PlayerController : MonoBehaviour
 		transform.position = position;
 
 		//Move Character vertically
-		if(vertical > 0){
-			rb2D.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+		if (vertical > 0 && jumped)
+		{
+			rb2D.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
 		}
+		else jumped = false;
 	}
 	
 	//Player animations
@@ -65,12 +90,5 @@ public class PlayerController : MonoBehaviour
 		}else{
 			animator.SetBool("Jump", false);
 		}	
-	}
-	void OnCollisionEnter2D(Collision2D coll)
-	{
-		if(coll.gameObject.CompareTag ("Enemy"))
-		{
-			Debug.Log("over");
-		}
 	}
 }
