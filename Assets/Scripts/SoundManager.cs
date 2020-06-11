@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
         public Sfx.PlayerSfx playerSfx;
         public AudioClip clip;
     }
+
     [Serializable]
     public class CollectibleClipping
     {
@@ -54,6 +55,8 @@ public class SoundManager : MonoBehaviour
         public Sfx.UISfx uiSfx;
         public AudioClip clip;
     }
+
+
     public void Awake()
     {
         if (instance == null)
@@ -70,9 +73,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-    }
+   
 
     public void playPlayerSound(Sfx.PlayerSfx playerSfx, bool isLoop)
     {

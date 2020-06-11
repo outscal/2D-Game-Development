@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6fd0c6994c5174482521544bfd6650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 250
   jumpSpeed: 13
   killJumpSpeed: 5
   rb: {fileID: 2185882377612206915}
@@ -221,7 +221,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   gameOverUI: {fileID: 0}
-  healthManager: {fileID: 0}
   rend: {fileID: 0}
   walkingClip: {fileID: 8300000, guid: 88cf4c38c64a7b84f88a54036e698825, type: 3}
 --- !u!58 &4424139197807634328

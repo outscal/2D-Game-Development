@@ -9,20 +9,19 @@ public class MainMenu : MonoBehaviour
 {
 
     public Button[] buttons;
-    public GameObject[] lockImages;
+    //public GameObject[] lockImages;
 
     private void Start()
     {
         SoundManager.instance.playGameSound(Sfx.GameSfx.MainMenu, true);
-        //for (int i = 0; i < buttons.Length; i++)
-        //{
-        //    buttons[i] = GetComponent<Button>();
-        //    buttons[i].onClick.AddListener(()=>PlayUiSfx());
-        //}
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].onClick.AddListener(() => PlayUiSfx());
+        }
     }
 
 
-       public void PlayUiSfx()
+    public void PlayUiSfx()
     {
         SoundManager.instance.playUiEffectSound(Sfx.UISfx.ButtonClick, false);
     }

@@ -12,7 +12,7 @@ public class Life : MonoBehaviour
         if (collision.gameObject.CompareTag("player"))
         {   if (GameData.HEALTHCOUNT < GameData.maxHealthCount)
             {
-            GameData.HEALTHCOUNT += GameData.healthValue;
+                HealthManager.instance.IncreaseHealth(GameData.healthValue);
             }
             coinEffect.SetActive(true);
             SoundManager.instance.playCollectibleSound(Sfx.CollectibleSfx.Life, false);

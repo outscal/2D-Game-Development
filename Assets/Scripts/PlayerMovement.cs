@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject gameOverUI;
     private Vector3 resetPos;
 
-    public HealthManager healthManager;
     public Renderer rend;
     public AudioClip walkingClip;
     //public Key[] keys;
@@ -84,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameData.HEALTHCOUNT > GameData.minHealthCount)
         {
-            healthManager.DecreaseHealth(GameData.healthValue);
+            HealthManager.instance.DecreaseHealth(GameData.healthValue);
             SoundManager.instance.playPlayerSound(Sfx.PlayerSfx.Death, false);
             StartCoroutine(RegeneratePlayer());
         }
@@ -93,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             SoundManager.instance.playGameSound(Sfx.GameSfx.GameOver, true);
             GameOver();
             Debug.Log("player destroyed");
-            healthManager.DecreaseHealth(GameData.healthValue);
+            HealthManager.instance.DecreaseHealth(GameData.healthValue);
             Destroy(gameObject);
         }
     }
