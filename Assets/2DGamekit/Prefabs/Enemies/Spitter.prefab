@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114539101004484498}
   - component: {fileID: 114108602925935074}
   m_Layer: 9
-  m_Name: SpitterPrefab
+  m_Name: Spitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
