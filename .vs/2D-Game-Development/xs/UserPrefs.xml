@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{651643A2-7CFD-A5FF-F6C7-515671AA6CC7}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraFollow.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Movement.cs" Line="69" Column="18" />
+      <File FileName="Assets/Scripts/Pausegame.cs" />
+      <File FileName="Assets/Scripts/scenetransition.cs" Line="9" Column="1" />
+      <File FileName="Assets/Scripts/ColliderScript.cs" />
+      <File FileName="Assets/Scripts/EnemyScript.cs" />
+      <File FileName="Assets/Scripts/Levelcomplete.cs" Line="21" Column="32" />
+      <File FileName="Assets/Scripts/CameraFollow.cs" Line="22" Column="4" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="2D-Game-Development" expanded="True" />
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="2D-Game-Development" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="a53c4045-af6c-4313-a20d-9726ca922940" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
