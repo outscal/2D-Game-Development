@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        Debug.Log("press r to run and c to crouch");
     }
 
     
