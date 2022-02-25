@@ -6,17 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     Animator animator;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float jumpStrength;
-    public static PlayerController instance;
+    [SerializeField] private float speed;
+    //[SerializeField] private float jump;
 
     private void Awake()
     {
-        instance = this;
         Debug.Log("Player controller awake");
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
     }
-//    private void OnCollisionEnter2D(Collision2D collision) {
-//        Debug.Log("Collision : " + collision.gameObject.name);
-//    }
 
         private void Start() {
             rb = GetComponent<Rigidbody2D>();
@@ -24,38 +22,53 @@ public class PlayerController : MonoBehaviour
         }
 
     private void Update() {
-        float speed = Input.GetAxisRaw("Horizontal");
-        float jump = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-        PlayerRunnig(speed);
-        PlayerJumping(jump);
+        PlayerMoving(horizontal, vertical);
+        PlayerMovememtAnimation(horizontal, vertical);
     }
 
-    void PlayerRunnig(float speed) {
-        animator.SetFloat("Speed", Mathf.Abs(speed));
+    void PlayerMoving(float horizontal, float vertical) {
+        //Move character horizontally
+        Vector3 position = transform.position;
+
+        // speed = distance / time;      timr.deltaTime = 1 / Frames per second
+        position.x = position.x + horizontal * speed * Time.deltaTime;
+        transform.position = position; 
+
+        //Move character vertically
+    //    if(vertical > 0) {
+    //         animator.SetBool("Jump", true);
+    //         rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+    //     }
+    //     else {
+    //         animator.SetBool("Jump",false);
+    //     }
+
+    }
+
+    void PlayerMovememtAnimation(float horizontal, float vertical) {
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
         
         Vector3 scale = transform.localScale;
         
-        if(speed < 0) {
+        if(horizontal < 0) {
             scale.x = -1f * Mathf.Abs(scale.x);
         } 
-        else if(speed > 0) {
+        else if(horizontal > 0) {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+
+        //Jump
+
+        // if(vertical > 0) {
+        //     animator.SetBool("Jump", true);
+        // }
+        // else {
+        //     animator.SetBool("Jump", false);
+        // }
     }
 
-    void PlayerJumping(float jump) {
-        //animator.SetFloat("Jump", Mathf.Abs(jump));
-
-        //Vector3 position = transform.position;
-        
-        if(jump > 0) {
-            animator.SetBool("Jump", true);
-            rb.AddForce(new Vector2(0f, jumpStrength), ForceMode2D.Impulse);
-        }
-        else {
-            animator.SetBool("Jump",false);
-        }
-    }
 }
