@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed;
-    //[SerializeField] private float jump;
+    [SerializeField] private float jump;
 
     private void Awake()
     {
@@ -38,13 +38,13 @@ public class PlayerController : MonoBehaviour
         transform.position = position; 
 
         //Move character vertically
-    //    if(vertical > 0) {
-    //         animator.SetBool("Jump", true);
-    //         rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-    //     }
-    //     else {
-    //         animator.SetBool("Jump",false);
-    //     }
+       if(vertical > 0) {
+            animator.SetBool("Jump", true);
+            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+        }
+        else {
+            animator.SetBool("Jump",false);
+        }
 
     }
 
@@ -63,12 +63,12 @@ public class PlayerController : MonoBehaviour
 
         //Jump
 
-        // if(vertical > 0) {
-        //     animator.SetBool("Jump", true);
-        // }
-        // else {
-        //     animator.SetBool("Jump", false);
-        // }
+        if(vertical > 0) {
+            animator.SetBool("Jump", true);
+        }
+        else {
+            animator.SetBool("Jump", false);
+        }
     }
 
 }
