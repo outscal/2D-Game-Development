@@ -9,9 +9,9 @@ public class CrouchMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float crouch;
     [SerializeField] private BoxCollider2D b_idle;
+    [SerializeField] private float jump;
     
-    private void Awake()
-    {
+    private void Awake() {
         SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -20,20 +20,31 @@ public class CrouchMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         }
 
-    private void Update()
-    {
+    private void Update() {
        float vertical = Input.GetAxisRaw("Vertical") ;
-       PlayerCrouchMovement(vertical);
+       PlayerCrouchMovement();
+       PlayerJumpMovement(vertical);
     }
 
-    void PlayerCrouchMovement(float vertical) {
-        if(vertical > 0)
-        {
+    void PlayerCrouchMovement() {
+        if(Input.GetKeyDown(KeyCode.RightControl)) {
             animator.SetBool("Crouch", true);
-            rb.AddForce(new Vector2(0f, crouch), ForceMode2D.Force);
+            //rb.AddForce(new Vector2(0f, crouch), ForceMode2D.Force);
+        }
+        else if(Input.GetKeyUp(KeyCode.RightControl)) {
+            animator.SetBool("Crouch", false);
+        }
+    }
+
+    void PlayerJumpMovement(float vertical) {
+        //Jump
+
+        if(vertical > 0) {
+            animator.SetBool("Jump", true);
+            rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
         else {
-            animator.SetBool("Crouch", false);
+            animator.SetBool("Jump", false);
         }
     }
 }
