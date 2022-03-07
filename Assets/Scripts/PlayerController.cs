@@ -2,32 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace playerMovement 
-{
+// namespace playerMovement 
+// {
     public class PlayerController : MonoBehaviour 
     {
         Animator animator;
         [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private BoxCollider2D box_collider;
         [SerializeField] private float speed;
+        //[SerializeField] private float crouch;
         [SerializeField] private float jump;
+        private float horizontal;
+        private float vertical;
+
+        
 
         private void Awake()
         {
             Debug.Log("Player controller awake");
+            
             rb = gameObject.GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
             SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
         }
 
-        private void Start() {
-            rb = GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
-        }
-
         private void Update() {
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
 
             PlayerMoving(horizontal, vertical);
+            PlayerCrouchMovement();
             PlayerMovementAnimation(horizontal, vertical);
         }
 
@@ -38,16 +42,6 @@ namespace playerMovement
             // speed = distance / time;      time.deltaTime = 1 / Frames per second
             position.x = position.x + horizontal * speed * Time.deltaTime;
             transform.position = position; 
-
-            //Move character vertically
-        if(vertical > 0) {
-                animator.SetBool("Jump", true);
-                rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-            }
-            else {
-                animator.SetBool("Jump",false);
-            }
-
         }
 
         void PlayerMovementAnimation(float horizontal, float vertical) {
@@ -63,14 +57,38 @@ namespace playerMovement
             }
             transform.localScale = scale;
 
-            //Jump
-
-            if(vertical > 0) {
-                animator.SetBool("Jump", true);
-            }
-            else {
+            if(!(vertical > 0)) {
                 animator.SetBool("Jump", false);
             }
         }
+
+        void PlayerCrouchMovement() {
+        if(Input.GetKeyDown(KeyCode.RightControl)) {
+            animator.SetBool("Crouch", true);
+            //rb.AddForce(new Vector2(0f, crouch), ForceMode2D.Force);
+        }
+        else if(Input.GetKeyUp(KeyCode.RightControl)) {
+            animator.SetBool("Crouch", false);
+        }
     }
-}
+
+        void OnCollisionStay2D(Collision2D collisionInfo)
+        {
+            //Move character vertically
+            if(vertical > 0) {
+                animator.SetBool("Jump", true);
+                rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision) {
+            if(collision.gameObject.CompareTag("Death")) {
+                Debug.Log("Player Dead");
+                Destroy(gameObject);
+                LevelManager.instance.Respawn();
+            }
+        }
+
+        
+    }
+//}
