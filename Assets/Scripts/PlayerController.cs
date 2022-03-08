@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
 
     public Animator animator;
-    public float speed;
-    public Vector3 scale;
     public Rigidbody2D rigidbody2D;
     public SpriteRenderer sprite;
-    public float jump;
     public BoxCollider2D boxCollider2D;
+
+    public GameObject gameWonPanel;
+	public GameObject gameLostPanel;
+
+    public float jump;
+    public bool isGrounded;
+    public float speed;
+    public Vector3 scale;
     public  Vector2 coliderSize, offsetSize;
-    public bool isGrounded = true;
 
 
     void Awake()
@@ -21,17 +27,15 @@ public class PlayerController : MonoBehaviour
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
-        coliderSize = boxCollider2D.size;
-        offsetSize = boxCollider2D.offset;
-        Debug.Log(boxCollider2D);
-        
     }
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start Function");
+        Debug.Log("Game Started");
         speed = 5f;
-        jump = 0.6f;
+        jump = 1.7f;
+         coliderSize = boxCollider2D.size;
+        offsetSize = boxCollider2D.offset;
     }
 
     void Update()
@@ -44,6 +48,13 @@ public class PlayerController : MonoBehaviour
         PLayerCrouch();
     }
 
+
+    public void PickUpKey()
+    {
+        Debug.Log("Player Picked up the key");
+        scoreController.IncreaseScore(10);
+    
+    }
     private void playerMovement(float horizontal, float vertical)
     {
 
@@ -60,9 +71,13 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         // Jump
+        // if(isGrounded && vertical > 0)
         if(vertical > 0)
+
         {
+            rigidbody2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse );
             animator.SetBool("Jump", true);
+
         }
         else
         {
@@ -77,25 +92,16 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         position.x = position.x + horizontal * speed * Time.deltaTime;
         transform.position = position;
-
-        // move character vertically
-
-        if(vertical > 0)
-        {
-            rigidbody2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse );
-        }  
-
     }
 
     private void PLayerCrouch()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             animator.SetBool("Crouch", true);          
             boxCollider2D.size = new Vector2(1f, 1.303408f);
-            boxCollider2D.offset = new Vector2(-0.01289269f, 0.6362488f);
+            boxCollider2D.offset = new Vector2(-0.01289269f, 0.5362488f);
 
-            Debug.Log( boxCollider2D.size);
         }else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
              boxCollider2D.size = coliderSize;
@@ -104,4 +110,44 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Crouch", false);
         }     
     }
+
+    void OnCollisionEnter2D(Collision2D col)
+     {
+		// Debug.Log ("I am at : "+ col.gameObject.name);
+        
+        if(col.gameObject.name == "Door")
+        {
+            gameWonPanel.SetActive (true);
+            animator.enabled = false;
+        }
+
+         if(col.gameObject.name == "GroundTileMap")
+        {
+            isGrounded = true;
+           //  Debug.Log("Is Grounded :" + isGrounded);
+
+        }
+
+
+
+     }
+
+    public void RestartGame()
+	{
+		gameWonPanel.SetActive (false);
+		SceneManager.LoadScene (6);
+	}
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+  
+     if(collision.gameObject.name == "GroundTileMap")
+        {
+        isGrounded = false;
+        }
+        // Debug.Log("Is Grounded :" + isGrounded);
+
+    }
+
+
 }

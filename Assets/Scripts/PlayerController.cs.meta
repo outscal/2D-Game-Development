@@ -3,7 +3,14 @@ guid: 6a298543d0d83c846b588c248dc5c483
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - animator: {instanceID: 0}
+  - rigidbody2D: {instanceID: 0}
+  - sprite: {instanceID: 0}
+  - boxCollider2D: {instanceID: 0}
+  - gameWonPanel: {fileID: 6022234446121037229, guid: 530d971ca13f2064ea3e6b495c6fde76,
+      type: 3}
+  - gameLostPanel: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
