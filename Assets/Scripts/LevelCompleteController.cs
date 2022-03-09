@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using playerMovement;
+using playerMovement;
 
 public class LevelCompleteController : MonoBehaviour
 {

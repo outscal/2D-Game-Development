@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// namespace playerMovement 
-// {
+namespace playerMovement 
+{
     public class PlayerController : MonoBehaviour 
     {
         Animator animator;
+        public ScoreController scoreController;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private BoxCollider2D box_collider;
         [SerializeField] private float speed;
-        //[SerializeField] private float crouch;
         [SerializeField] private float jump;
         private float horizontal;
         private float vertical;
-
-        
 
         private void Awake()
         {
@@ -23,9 +21,12 @@ using UnityEngine;
             
             rb = gameObject.GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
-            SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
         }
 
+        public void PickUpKey() {
+        Debug.Log("Player picked up the key");
+        scoreController.IncrementScore(10);
+        }
         private void Update() {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
@@ -65,7 +66,6 @@ using UnityEngine;
         void PlayerCrouchMovement() {
         if(Input.GetKeyDown(KeyCode.RightControl)) {
             animator.SetBool("Crouch", true);
-            //rb.AddForce(new Vector2(0f, crouch), ForceMode2D.Force);
         }
         else if(Input.GetKeyUp(KeyCode.RightControl)) {
             animator.SetBool("Crouch", false);
@@ -91,4 +91,4 @@ using UnityEngine;
 
         
     }
-//}
+}
