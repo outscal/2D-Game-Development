@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
 namespace playerMovement 
@@ -27,6 +26,17 @@ namespace playerMovement
         Debug.Log("Player picked up the key");
         scoreController.IncrementScore(10);
         }
+
+        public void KillPlayer()
+        {
+            Debug.Log("Player Killed");
+            ReloadLevel();
+        }
+
+        private void ReloadLevel()
+        {
+            SceneManager.LoadScene(0);
+        }
         private void Update() {
             horizontal = Input.GetAxisRaw("Horizontal");
             vertical = Input.GetAxisRaw("Vertical");
@@ -36,7 +46,8 @@ namespace playerMovement
             PlayerMovementAnimation(horizontal, vertical);
         }
 
-        void PlayerMoving(float horizontal, float vertical) {
+        void PlayerMoving(float horizontal, float vertical) 
+        {
             //Move character horizontally
             Vector3 position = transform.position;
 
@@ -45,29 +56,36 @@ namespace playerMovement
             transform.position = position; 
         }
 
-        void PlayerMovementAnimation(float horizontal, float vertical) {
+        void PlayerMovementAnimation(float horizontal, float vertical) 
+        {
             animator.SetFloat("Speed", Mathf.Abs(horizontal));
             
             Vector3 scale = transform.localScale;
             
-            if(horizontal < 0) {
+            if(horizontal < 0) 
+            {
                 scale.x = -1f * Mathf.Abs(scale.x);
             } 
-            else if(horizontal > 0) {
+            else if(horizontal > 0) 
+            {
                 scale.x = Mathf.Abs(scale.x);
             }
             transform.localScale = scale;
 
-            if(!(vertical > 0)) {
+            if(!(vertical < 0)) {
                 animator.SetBool("Jump", false);
+
             }
         }
 
-        void PlayerCrouchMovement() {
-        if(Input.GetKeyDown(KeyCode.RightControl)) {
+        void PlayerCrouchMovement() 
+        {
+        if(Input.GetKeyDown(KeyCode.RightControl)) 
+        {
             animator.SetBool("Crouch", true);
         }
-        else if(Input.GetKeyUp(KeyCode.RightControl)) {
+        else if(Input.GetKeyUp(KeyCode.RightControl)) 
+        {
             animator.SetBool("Crouch", false);
         }
     }
@@ -81,14 +99,14 @@ namespace playerMovement
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision) {
-            if(collision.gameObject.CompareTag("Death")) {
-                Debug.Log("Player Dead");
+        private void OnCollisionEnter2D(Collision2D collision) 
+        {
+            if(collision.gameObject.CompareTag("Death")) 
+            {
+                Debug.Log("Player Died");
                 Destroy(gameObject);
                 LevelManager.instance.Respawn();
             }
-        }
-
-        
+        }   
     }
 }
