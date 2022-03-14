@@ -90,6 +90,8 @@
     <Compile Include="Assets\Scripts\GameOverController.cs" />
     <Compile Include="Assets\Scripts\HealthController.cs" />
     <Compile Include="Assets\Scripts\KeyController.cs" />
+    <Compile Include="Assets\Scripts\Level\LevelLoader.cs" />
+    <Compile Include="Assets\Scripts\Level\Levels.cs" />
     <Compile Include="Assets\Scripts\LevelCompleteController.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\LobbyController.cs" />

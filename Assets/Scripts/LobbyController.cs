@@ -4,11 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
-    public void PlayGame()
+    public Button playButton;
+    public GameObject LevelSelection;
+    /*public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-    /*public Button playButton;
+    }*/
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class LobbyController : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
-    }*/
+        //SceneManager.LoadScene(1);
+        LevelSelection.SetActive(true);
+    }
 }

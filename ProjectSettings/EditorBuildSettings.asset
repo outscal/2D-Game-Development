@@ -9,11 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: 4ebb29cd732baa344895aee206c52060
   - enabled: 1
-    path: Assets/Scenes/LevelOne.unity
+    path: Assets/Scenes/Levels/LevelOne.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/LevelTwo.unity
-    guid: dd539a1252f231e44b628a564af71645
+    path: Assets/Scenes/Levels/LevelTwo.unity
+    guid: bfa683f1aa860b147bcbe3ac7d5a2b53
+  - enabled: 1
+    path: Assets/Scenes/Levels/LevelThree.unity
+    guid: 6ec19f2e16db5d14fb029a70b6966700
+  - enabled: 1
+    path: Assets/Scenes/Levels/LevelFour.unity
+    guid: c89b18a07f5677746af3c38b36dbaaa3
   - enabled: 0
     path: Assets/2DGamekit/Scenes/Start.unity
     guid: 57df1e417250bc247976c2c0dc088efe
