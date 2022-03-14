@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
-    public string LevelOne;
     public Transform respawnPoint;
     public GameObject playerPrefab;
 
@@ -17,6 +16,6 @@ public class LevelManager : MonoBehaviour
 
     public void Respawn() {
         Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
-        SceneManager.LoadScene(LevelOne);
+        SceneManager.LoadScene(1);
     }
 }
