@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
-    public Button playButton;
+    public Button startButton;
     public GameObject LevelSelection;
     /*public void PlayGame()
     {
@@ -13,7 +12,7 @@ public class LobbyController : MonoBehaviour
 
     private void Awake()
     {
-        playButton.onClick.AddListener(PlayGame);
+        startButton.onClick.AddListener(PlayGame);
     }
 
     public void PlayGame()

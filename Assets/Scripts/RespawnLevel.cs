@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Implemented respawn.
 /// </summary>
-public class LevelManager : MonoBehaviour
+public class RespawnLevel : MonoBehaviour
 {
-    public static LevelManager instance;
+    public static RespawnLevel instance;
     public Transform respawnPoint;
     public GameObject playerPrefab;
 

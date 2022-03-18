@@ -13,80 +13,39 @@ public class EnemyController : MonoBehaviour
     public HealthController healthController;
 
     public float walkSpeed;
-    [HideInInspector] public bool mustPatrol;
-    private bool mustFlip;
-    //public bool mustPatrol = true;
     public float distance;
+    public bool moveRight = true;
     public Transform groundDetectionPoint;
-    public Rigidbody2D rb;
-    //public LayerMask groundLayer;
-    public Collider2D bodyCollider;
 
-    void Start()
+
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
-        mustPatrol = true;
-    }
-    void Update()
-    {
-        if(mustPatrol == true)
+        if(collision.gameObject.CompareTag("Player"))
         {
-            Patrol();
-        }
 
-        /*transform.Translate(Vector2.right * walkSpeed * Time.deltaTime);
+        }
+    }*/
+    
+    private void Update()
+    {
+        transform.Translate(Vector2.right * walkSpeed * Time.deltaTime);
 
         RaycastHit2D groundInfo = Physics2D.Raycast(groundDetectionPoint.position, Vector2.down, distance);
 
-        if (groundInfo.collider == false)
+        if (!groundInfo.collider)
         {
-            if (mustPatrol == true)
+            if (moveRight)
             {
                 transform.eulerAngles = new Vector3(0, -180, 0);
-                mustPatrol = false;
+                moveRight = false;
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
-                mustPatrol = true;
+                moveRight = true;
             }
-        }*/
-    }
-
-    private void FixedUpdate()
-    {
-        if (mustPatrol == true)
-        {
-            RaycastHit2D groundInfo = Physics2D.Raycast(groundDetectionPoint.position, Vector2.down, distance);
-            //mustFlip = !Physics2D.OverlapCircle(groundDetectionPoint.position, 0.1f, groundLayer);
-
-            if (groundInfo.collider == false)
-            {
-                Flip();
-                /*if (!groundInfo.collider.gameObject.CompareTag("Player"))
-                {
-                    Flip();
-                }*/
-                   
-            }          
         }
     }
-
-    void Patrol()
-    {
-        if (mustFlip == true)// || bodyCollider.IsTouchingLayers(groundLayer))
-        {
-            Flip();
-        }
-        rb.velocity = new Vector2(walkSpeed * Time.fixedDeltaTime, rb.velocity.y);
-    }
-
-    void Flip()
-    {
-        mustPatrol = false;
-        transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
-        walkSpeed *= -1;
-        mustPatrol = true;
-    } 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

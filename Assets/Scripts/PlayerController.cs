@@ -5,74 +5,99 @@ using UnityEngine.UI;
 
 namespace playerMovement 
 {
-    public class PlayerController : MonoBehaviour 
+    public class PlayerController : MonoBehaviour
     {
-        Animator animator;
+        //Animator animator;
         public ScoreController scoreController;
         public HealthController healthController;
         public GameOverController gameOverController;
 
-        [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private BoxCollider2D box_collider;
-        [SerializeField] private float speed;
-        [SerializeField] private float jumpWaitTime;
-         private float jumpWaitTimer;
-        [SerializeField] private float jump;
-        private float horizontal;
+        //[SerializeField] private Rigidbody2D rb;
+        //[SerializeField] private float speed;
+        //[SerializeField] private BoxCollider2D box_collider;
+        //[SerializeField] private float jumpWaitTime;
+        //[SerializeField] private float jump;
+        //[SerializeField] int jumpcounter = 0;
+       // private float dirX;
+        //private Vector3 scale;
+        //private float horizontal;
 
-        private float vertical;
-        public Collider2D playerCollider;
+        //private float vertical;
 
-        [SerializeField] Transform groundCheckCollider;
-        [SerializeField] LayerMask groundLayer;
-        const float groundCheckRadius = 0.2f;
-        [SerializeField] bool isGrounded = false;
+        //[SerializeField] Transform groundCheckCollider;
+        //[SerializeField] LayerMask groundLayer;
+        //const float groundCheckRadius = 0.2f;
+        //[SerializeField] bool isGrounded = false;
+        //[SerializeField] float jumpPower = 300;
+        //bool jump = false;
+        //bool jumpFlag;
+
+        //bool isJumping;
+        //bool isGround;
+        //bool crouch;
+
+        public Animator animator;
+
+        public float Speed;
+        public float jump;
+
+        private Rigidbody2D rb2d;
+        private BoxCollider2D boxCollider;
+
+        [SerializeField] private LayerMask platformLayerMask;
 
         private void Awake()
         {
-            Debug.Log("Player controller awake");            
-            rb = gameObject.GetComponent<Rigidbody2D>();
-            animator = GetComponent<Animator>();
+            rb2d = gameObject.GetComponent<Rigidbody2D>();
+            boxCollider = gameObject.GetComponent<BoxCollider2D>();
         }
 
-        public void PickUpKey() {
-        Debug.Log("Player picked up the key");
-        scoreController.IncrementScore(10);
-        }
-
-        public void KillPlayer()
+        private void Update()
         {
-            Debug.Log("Player Killed");
-            gameOverController.GameOver();
-            this.enabled = false;
-        }
-                
-        private void Update() {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            vertical = Input.GetAxisRaw("Vertical");
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Jump");
 
-            isGrounded = playerCollider.IsTouchingLayers(groundLayer);
-            PlayerJumpMovement(vertical);
+            PlayerMovementAnimation(horizontal, vertical);
+            MoveCharacter(horizontal, vertical);
+
+            // play crouch animation
+            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+            {
+                if (animator != null)
+                {
+                    animator.SetBool("Crouch", true);
+                }
+            }
+            else
+            {
+                if (animator != null)
+                {
+                    animator.SetBool("Crouch", false);
+                }
+            }
+
         }
 
-        private void FixedUpdate()
+        private void PlayerMovementAnimation(float horizontal, float vertical)
         {
-            //GroundCheck();            
-            PlayerMoving(horizontal);
-            
-            PlayerCrouchMovement();
-        }
+            if (animator != null)
+            {
+                // Setting float value of speed inside animator
+                animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-        void PlayerMoving(float horizontal) 
-        {
-            animator.SetFloat("Speed", Mathf.Abs(horizontal));
-            //Move character horizontally
-            Vector3 position = transform.position;
+                // Setting value of 'jump' boolean
+                if (vertical > 0 && IsGrounded())
+                {
+                    animator.SetBool("Jump", true);
+                }
+                else
+                {
+                    animator.SetBool("Jump", false);
+                }
+            }
+
+            // Change the direction of player
             Vector3 scale = transform.localScale;
-
-            // speed = distance / time;      time.deltaTime = 1 / Frames per second
-            position.x = position.x + horizontal * speed * Time.deltaTime;
-            transform.position = position;
 
             if (horizontal < 0)
             {
@@ -82,66 +107,52 @@ namespace playerMovement
             {
                 scale.x = Mathf.Abs(scale.x);
             }
+
             transform.localScale = scale;
         }
 
-        void PlayerJumpMovement(float vertical) 
+        private void MoveCharacter(float horizontal, float vertical)
         {
-            if(isGrounded || jumpWaitTimer > 0f)
-            {
-                if (!(vertical < 0))
-                {
-                    animator.SetBool("Jump", false);
-                }
-                if (vertical > 0)
-                {
-                    animator.SetBool("Jump", true);
-                    rb.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
-                }
-            }
+            // Horizontal character movement
+            Vector3 position = transform.position;
+            position.x += horizontal * Speed * Time.deltaTime;
+            transform.position = position;
 
-            //Timer
-            if (isGrounded)
+            // Vertical Character movement
+            if (vertical > 0 && IsGrounded())
             {
-                jumpWaitTimer = jumpWaitTime;
-            }
-            else
-            {
-                if (jumpWaitTimer > 0f)
-                {
-                    jumpWaitTimer -= Time.deltaTime;
-                }
+                rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
             }
         }
 
-        void PlayerCrouchMovement() 
+        private bool IsGrounded()
         {
-        if(Input.GetKeyDown(KeyCode.RightControl)) 
-        {
-            animator.SetBool("Crouch", true);
-        }
-        else if(Input.GetKeyUp(KeyCode.RightControl)) 
-        {
-            animator.SetBool("Crouch", false);
-        }
-    }
-        /*void GroundCheck()
-        {
-            isGrounded = false;
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer);
-            if (colliders.Length > 0)
-            {
-                isGrounded = true;
-            }
-        }*/
+            float extraHeight = 0.3f;
 
-        private void OnCollisionEnter2D(Collision2D collision) 
+            RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, extraHeight, platformLayerMask);
+            return raycastHit.collider != null;
+        }
+
+        public void PickUpKey()
+        {            
+            Debug.Log("Player picked up the key");
+            scoreController.IncrementScore(10);           
+        }
+
+        public void KillPlayer()
+        {
+            Debug.Log("Player Killed");
+            gameOverController.GameOver();
+            this.enabled = false;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if ((collision.gameObject.CompareTag("Death")) || collision.gameObject.GetComponent<PlayerController>() != null)
             {
                 Debug.Log("Player Died");
                 Destroy(gameObject);
-                LevelManager.instance.Respawn();
+                RespawnLevel.instance.Respawn();
             }
         }
     }
