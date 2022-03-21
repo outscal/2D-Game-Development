@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Assests.Scripts.Level;
 
 [RequireComponent(typeof(Button))]
 public class LevelLoader : MonoBehaviour
 {
     private Button button;
-
     public string LevelName;
     private void Awake()
     {
@@ -16,8 +16,9 @@ public class LevelLoader : MonoBehaviour
 
     private void onClick()
     {
-        //SceneManager.LoadScene(LevelName);
+        Debug.Log(LevelName);
         LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelName);
+
         
         switch (levelStatus)
         {
@@ -33,6 +34,5 @@ public class LevelLoader : MonoBehaviour
                 SceneManager.LoadScene(LevelName);
                 break;
         }
-        //SceneManager.LoadScene(LevelName);
     }
 }

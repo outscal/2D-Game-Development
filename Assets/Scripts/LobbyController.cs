@@ -5,12 +5,8 @@ public class LobbyController : MonoBehaviour
 {
     public Button startButton;
     public GameObject LevelSelection;
-    /*public void PlayGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }*/
 
-    private void Awake()
+    private void Start()
     {
         startButton.onClick.AddListener(PlayGame);
     }

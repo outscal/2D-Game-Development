@@ -17,15 +17,6 @@ public class EnemyController : MonoBehaviour
     public bool moveRight = true;
     public Transform groundDetectionPoint;
 
-
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-
-        }
-    }*/
-    
     private void Update()
     {
         transform.Translate(Vector2.right * walkSpeed * Time.deltaTime);
@@ -56,7 +47,6 @@ public class EnemyController : MonoBehaviour
             if (playerController != null)
             {
                 healthController.LoseLife();
-                // playerController.PlayerHit();
             }
             if (healthController.livesRemaining == 0)
             {

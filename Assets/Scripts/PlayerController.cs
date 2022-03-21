@@ -1,40 +1,12 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace playerMovement 
 {
     public class PlayerController : MonoBehaviour
     {
-        //Animator animator;
         public ScoreController scoreController;
         public HealthController healthController;
         public GameOverController gameOverController;
-
-        //[SerializeField] private Rigidbody2D rb;
-        //[SerializeField] private float speed;
-        //[SerializeField] private BoxCollider2D box_collider;
-        //[SerializeField] private float jumpWaitTime;
-        //[SerializeField] private float jump;
-        //[SerializeField] int jumpcounter = 0;
-       // private float dirX;
-        //private Vector3 scale;
-        //private float horizontal;
-
-        //private float vertical;
-
-        //[SerializeField] Transform groundCheckCollider;
-        //[SerializeField] LayerMask groundLayer;
-        //const float groundCheckRadius = 0.2f;
-        //[SerializeField] bool isGrounded = false;
-        //[SerializeField] float jumpPower = 300;
-        //bool jump = false;
-        //bool jumpFlag;
-
-        //bool isJumping;
-        //bool isGround;
-        //bool crouch;
 
         public Animator animator;
 
@@ -50,6 +22,7 @@ namespace playerMovement
         {
             rb2d = gameObject.GetComponent<Rigidbody2D>();
             boxCollider = gameObject.GetComponent<BoxCollider2D>();
+            animator = gameObject.GetComponent<Animator>();
         }
 
         private void Update()
@@ -62,18 +35,12 @@ namespace playerMovement
 
             // play crouch animation
             if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
-            {
-                if (animator != null)
-                {
-                    animator.SetBool("Crouch", true);
-                }
+            {                
+                animator.SetBool("Crouch", true);                
             }
             else
-            {
-                if (animator != null)
-                {
-                    animator.SetBool("Crouch", false);
-                }
+            {            
+                animator.SetBool("Crouch", false);               
             }
 
         }

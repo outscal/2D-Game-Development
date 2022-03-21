@@ -4,23 +4,29 @@ using UnityEngine.UI;
 
 public class GameOverController : MonoBehaviour
 {
-    //Game over when player died.
 
     public Button restartButton;
+    public Button backButton;
 
     private void Awake()
     {
         restartButton.onClick.AddListener(ReloadLevel);
+        backButton.onClick.AddListener(BackToLobby);
     }
     public void GameOver()
     {
         gameObject.SetActive(true);
-        //this.enabled = false;
     }
     private void ReloadLevel()
     {
         Debug.Log("Reloading Scene...");
         Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void BackToLobby()
+    {
+        Debug.Log("Reloading to lobby Scene...");
+        SceneManager.LoadScene(0);
     }
 }
