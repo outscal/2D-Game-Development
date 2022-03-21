@@ -7,11 +7,14 @@ namespace playerMovement
         public ScoreController scoreController;
         public HealthController healthController;
         public GameOverController gameOverController;
+        public GameCompleteMenuController GameCompleteMenuController;
 
         public Animator animator;
 
         public float Speed;
         public float jump;
+
+        private bool isCrouch = false;
 
         private Rigidbody2D rb2d;
         private BoxCollider2D boxCollider;
@@ -29,66 +32,59 @@ namespace playerMovement
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Jump");
-
-            PlayerMovementAnimation(horizontal, vertical);
-            MoveCharacter(horizontal, vertical);
-
-            // play crouch animation
-            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
-            {                
-                animator.SetBool("Crouch", true);                
-            }
-            else
-            {            
-                animator.SetBool("Crouch", false);               
-            }
-
+                PlayerMovement(horizontal, vertical);
+                PlayerJump(horizontal, vertical);
+                Crouch();
         }
-
-        private void PlayerMovementAnimation(float horizontal, float vertical)
+         
+        private void PlayerJump(float horizontal, float vertical)
         {
-            if (animator != null)
-            {
-                // Setting float value of speed inside animator
-                animator.SetFloat("Speed", Mathf.Abs(horizontal));
-
-                // Setting value of 'jump' boolean
-                if (vertical > 0 && IsGrounded())
+                          
+                if (vertical > 0 && IsGrounded() && !isCrouch)
                 {
                     animator.SetBool("Jump", true);
+                    rb2d.velocity = Vector2.up * jump;
                 }
                 else
                 {
                     animator.SetBool("Jump", false);
                 }
-            }
-
-            // Change the direction of player
-            Vector3 scale = transform.localScale;
-
-            if (horizontal < 0)
-            {
-                scale.x = -1f * Mathf.Abs(scale.x);
-            }
-            else if (horizontal > 0)
-            {
-                scale.x = Mathf.Abs(scale.x);
-            }
-
-            transform.localScale = scale;
+               
         }
 
-        private void MoveCharacter(float horizontal, float vertical)
+        private void PlayerMovement(float horizontal, float vertical)
         {
-            // Horizontal character movement
-            Vector3 position = transform.position;
-            position.x += horizontal * Speed * Time.deltaTime;
-            transform.position = position;
-
-            // Vertical Character movement
-            if (vertical > 0 && IsGrounded())
+            if(!isCrouch)
             {
-                rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+                animator.SetFloat("Speed", Mathf.Abs(horizontal));
+                // Horizontal character movement
+                Vector3 scale = transform.localScale;
+                if (horizontal < 0)
+                {
+                    scale.x = -1f * Mathf.Abs(scale.x);
+                }
+                else if (horizontal > 0)
+                {
+                    scale.x = Mathf.Abs(scale.x);
+                }
+                transform.localScale = scale;
+
+                Vector3 position = transform.position;
+                position.x += horizontal * Speed * Time.deltaTime;
+                transform.position = position;                
+            }
+        }
+
+        private void Crouch()
+        {
+            isCrouch = (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl));
+            if (isCrouch)
+            {
+                animator.SetBool("Crouch", true);
+            }
+            else
+            {
+                animator.SetBool("Crouch", false);
             }
         }
 
@@ -110,6 +106,13 @@ namespace playerMovement
         {
             Debug.Log("Player Killed");
             gameOverController.GameOver();
+            this.enabled = false;
+        }
+
+        public void LevelComplete()
+        {
+            Debug.Log("Level Complete");
+            GameCompleteMenuController.LevelComplete();
             this.enabled = false;
         }
 

@@ -2,25 +2,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverController : MonoBehaviour
+public class GameCompleteMenuController : MonoBehaviour
 {
-
-    public Button restartButton;
+    public Button nextButton;
     public Button backButton;
 
     private void Awake()
     {
-        restartButton.onClick.AddListener(ReloadLevel);
+        nextButton.onClick.AddListener(NextLevel);
         backButton.onClick.AddListener(BackToLobby);
     }
-    public void GameOver()
+    public void LevelComplete()
     {
         gameObject.SetActive(true);
     }
-    private void ReloadLevel()
+    public void NextLevel()
     {
         Debug.Log("Reloading Scene...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void BackToLobby()
